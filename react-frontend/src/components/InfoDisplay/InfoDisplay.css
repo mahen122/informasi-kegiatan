@@ -1,0 +1,491 @@
+/* =================================================== */
+/* 1. GLOBAL & CONTAINER STYLES */
+/* =================================================== */
+.info-display {
+  /* inherit global font (Times New Roman) */
+  min-height: 100vh;
+  background: #9B0000; /* Merah Marun/Dasar */
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1; /* Konten mengisi ruang yang tersisa */
+}
+
+/* =================================================== */
+/* 2. HEADER & DATETIME STYLES */
+/* =================================================== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0px;
+  padding: 20px 20px;
+  /* Gradien yang mewah dari Merah Marun */
+  background: linear-gradient(90deg, #8b0b0b 0%, #a61b1b 100%);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-semarang {
+  height: 100px;
+  width: auto;
+}
+
+/* Title inside the header logo area */
+.logo-container h1 {
+  font-size: 1.6em;
+  margin: 0;
+  line-height: 1.2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.datetime {
+  text-align: right;
+  font-size: 1.5em;
+  color: white;
+}
+
+.date {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.time {
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
+/* Penyesuaian Style Clock dari file Anda (dihapus/digabungkan karena sudah ada .datetime) */
+/* .datetime-box, .header-right, .datetime-box children tidak terpakai jika menggunakan struktur .datetime */
+
+/* =================================================== */
+/* 3. TABS STYLES (AGENDA) */
+/* =================================================== */
+.tabs-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2); /* Garis pemisah lebih elegan */
+}
+
+.tab-button {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  color: white;
+  padding: 8px 18px;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 160ms, border-color 160ms, color 160ms;
+}
+
+.tab-button:hover { background: rgba(255,255,255,0.1); } /* Ditingkatkan sedikit */
+
+.tab-button.active {
+  background: white;
+  color: #9B0000;
+  border-color: white;
+}
+
+/* =================================================== */
+/* 4. AGENDA SECTION (TABLE) STYLES */
+/* =================================================== */
+.agenda-section {
+  margin-bottom: 40px;
+}
+
+.agenda-section h2 {
+  color: white;
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 10px;
+  overflow: hidden; /* Untuk border radius di sudut */
+  border-radius: 8px; /* Sudut membulat */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+th, td {
+  padding: 15px;
+  /* Menghapus border 1px yang membuat garis ganda */
+}
+
+th {
+  background: #FFB300; /* Kuning Emas */
+  color: #8B0000; /* Merah Tua */
+  font-weight: bold;
+  text-transform: uppercase;
+  border-bottom: 2px solid #D19100; /* Garis bawah yang serasi */
+}
+
+/* Column widths */
+th:nth-child(1), td:nth-child(1) { width: 5%; }
+th:nth-child(2), td:nth-child(2) { width: 40%; }
+th:nth-child(3), td:nth-child(3) { width: 15%; }
+th:nth-child(4), td:nth-child(4) { width: 15%; }
+th:nth-child(5), td:nth-child(5) { width: 25%; }
+
+td {
+  background: white;
+  color: #333;
+  border-right: 1px solid #eee; /* Border vertikal tipis */
+  border-bottom: 1px solid #eee; /* Border horizontal tipis */
+}
+td:last-child {
+  border-right: none;
+}
+
+tr:hover td {
+  background-color: #FFF8E1; /* Kuning Sangat Muda */
+}
+
+/* Center align specific columns */
+td:nth-child(1),
+td:nth-child(3),
+td:nth-child(4) {
+  text-align: center;
+}
+
+/* Animated rows for nicer appearance */
+.activity-row {
+  animation: fadeInUp 420ms ease both;
+}
+
+/* Tambahan: Styling untuk baris ganjil/genap (zebra) */
+tr:nth-child(even) td {
+  background-color: #f7f7f7;
+}
+tr:nth-child(even):hover td {
+  background-color: #FFF8E1;
+}
+
+/* Styling saat tidak ada data/error */
+.loading-message, .no-data {
+  text-align: center;
+  padding: 20px;
+  font-size: 1.2em;
+  color: white;
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.error-message {
+  text-align: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  max-width: 500px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.error-message p {
+  color: #8B0000;
+  margin-bottom: 15px;
+  font-size: 1.1em;
+}
+
+.retry-button {
+  padding: 10px 20px;
+  background: #FFB300;
+  color: #8B0000;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.retry-button:hover { background: #FFA000; }
+.retry-button:active { background: #FF8F00; }
+
+
+/* =================================================== */
+/* 5. NEWS SECTION STYLES (Berita Terbaru) */
+/* =================================================== */
+.news-section {
+  background-color: transparent; /* Sudah dihandle oleh .info-display */
+  padding: 40px 0;
+  text-align: center;
+}
+
+.section-title {
+  color: #FFB300; /* Warna Emas untuk Judul Berita */
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  font-family: 'Times New Roman', serif;
+  border-bottom: 3px solid #FFB300; 
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.news-cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.news-card {
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  width: 300px;
+  text-align: left;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.news-card-visual {
+  /* Placeholder/Visual Header */
+  background-color: #000000; 
+  height: 150px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  
+}
+.news-card-visual .news-card-title-mobile {
+    color: #333;
+    font-size: 1.1em;
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+.news-card-content {
+  padding: 15px;
+}
+
+.news-category {
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #9B0000; 
+  display: block;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.news-card-title {
+  font-size: 1.2em;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+/* Menyembunyikan judul yang duplikat saat menggunakan visual placeholder */
+.news-card-title-mobile { display: none; }
+@media (max-width: 480px) {
+    .news-card-title-mobile { display: block; }
+    .news-card-title { display: none; }
+}
+
+
+.news-date {
+  font-size: 0.85em;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.news-description {
+  font-size: 0.9em;
+  color: #444;
+  margin-bottom: 15px;
+}
+
+.read-more-link {
+  color: #007BFF;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.read-more-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+
+/* =================================================== */
+/* 6. FOOTER STYLES */
+/* =================================================== */
+.site-footer {
+  background-color: #f8f9fa;
+  color: #333;
+  padding: 40px 20px;
+  border-top: 5px solid #FFB300; /* Garis emas di atas footer */
+  margin-top: 40px; 
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 220px;
+  margin: 20px 10px; /* Kurangi margin horizontal sedikit */
+}
+
+.footer-about .footer-logo {
+  max-width: 180px; /* Ukuran logo disesuaikan */
+  margin-bottom: 15px;
+}
+
+.footer-about p {
+  font-size: 0.9em;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.footer-section h4 {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  color: #9B0000; /* Warna Merah Marun untuk judul footer */
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 8px;
+}
+
+.footer-links ul li a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links ul li a:hover {
+  color: #9B0000;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icons a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #9B0000; /* Ikon Merah Marun */
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.social-icons a:hover {
+  background-color: #9B0000;
+  color: white;
+  border-color: #9B0000;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  font-size: 0.9em;
+  color: #666;
+}
+
+/* =================================================== */
+/* 7. RESPONSIVE RULES */
+/* =================================================== */
+
+@media (max-width: 1024px) {
+  .logo-semarang { height: 80px; }
+  .logo-container h1 { font-size: 1.4em; }
+}
+
+@media (max-width: 768px) {
+  .header { flex-direction: column; align-items: stretch; padding: 14px; }
+  .logo-container { justify-content: center; } /* Pusatkan logo di tengah */
+  .datetime { text-align: center; margin-top: 15px; font-size: 1.2em; }
+  .time { font-size: 2em; }
+  .logo-semarang { height: 64px; }
+  
+  /* Footer Responsive */
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-section {
+    min-width: 100%;
+    margin: 15px 0;
+  }
+  .social-icons {
+    justify-content: center;
+  }
+
+  /* Agenda Table Responsive (seperti saran Anda) */
+  table { min-width: 700px; } /* Jaga agar tabel tidak terlalu hancur */
+}
+
+@media (max-width: 480px) {
+  .info-display { padding: 10px; }
+  .logo-semarang { height: 56px; }
+  .header { padding: 10px; }
+  .logo-container h1 { font-size: 1.0em; }
+  .time { font-size: 1.8em; }
+
+  th, td { padding: 10px 8px; }
+  th { font-size: 0.95em; }
+  td { font-size: 0.95em; }
+}
+
+/* Animasi */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
